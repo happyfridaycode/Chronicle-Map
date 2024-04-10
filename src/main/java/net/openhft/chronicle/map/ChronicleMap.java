@@ -54,7 +54,6 @@ import java.util.concurrent.ConcurrentMap;
  * @param <V> the map value type
  * @see ChronicleMapBuilder#create()
  * @see ChronicleMapBuilder#createPersistedTo(File)
- * @see ChronicleMapBuilder#createOrRecoverPersistedTo(File, boolean)
  */
 public interface ChronicleMap<K, V> extends ConcurrentMap<K, V>,
         ChronicleHash<K, MapEntry<K, V>, MapSegmentContext<K, V, ?>,

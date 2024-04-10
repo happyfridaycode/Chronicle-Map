@@ -44,7 +44,6 @@ import java.io.File;
  * implementation must care about synchronization itself.
  *
  * @see ChronicleHashBuilder#recoverPersistedTo(File, boolean, ChronicleHashCorruption.Listener)
- * @see ChronicleHashBuilder#createOrRecoverPersistedTo(File, boolean, ChronicleHashCorruption.Listener)
  */
 @Beta
 public interface ChronicleHashCorruption {

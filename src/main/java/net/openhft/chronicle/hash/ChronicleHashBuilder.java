@@ -586,7 +586,7 @@ public interface ChronicleHashBuilder<K, H extends ChronicleHash<K, ?, ?, ?>,
      * Chronicle Map employs a best-effort to ensure file exclusivity during recovery operations.
      * However, these efforts may not be applicable for all platforms and/or situations. Ultimately,
      * the user is responsible for ensuring absolute exclusivity.
-     *
+         *
      * @param file                               a hash container was mapped to the given file
      * @param sameBuilderConfigAndLibraryVersion if this builder is configured with the same
      *                                           configurations, as the builder, which created the file (the persisted Chronicle Hash
@@ -645,7 +645,7 @@ public interface ChronicleHashBuilder<K, H extends ChronicleHash<K, ?, ?, ?>,
      * Chronicle Map employs a best-effort to ensure file exclusivity during recovery operations.
      * However, these efforts may not be applicable for all platforms and/or situations. Ultimately,
      * the user is responsible for ensuring absolute exclusivity.
-     *
+         *
      * @param file                               a hash container was mapped to the given file
      * @param sameBuilderConfigAndLibraryVersion if this builder is configured with the same
      *                                           configurations, as the builder, which created the file (the persisted Chronicle Hash
