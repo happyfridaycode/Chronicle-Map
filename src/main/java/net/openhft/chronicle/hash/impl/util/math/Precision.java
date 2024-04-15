@@ -49,18 +49,16 @@ class Precision {
     }
 
     /**
-     * Returns <code>true</code> if both arguments are equal or within the range of allowed
+     * Returns {@code true} if both arguments are equal or within the range of allowed
      * error (inclusive).
      * <p>
      * Two float numbers are considered equal if there are {@code (maxUlps - 1)}
      * (or fewer) floating point numbers between them, i.e. two adjacent
      * floating point numbers are considered equal.
-     * </p>
      * <p>
      * Adapted from <a
      * href="http://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/">
      * Bruce Dawson</a>
-     * </p>
      *
      * @param x       first value
      * @param y       second value
