@@ -27,25 +27,25 @@ import java.util.concurrent.locks.Lock;
  * An inter-process lock, used to control access to some shared off-heap resources of {@link
  * ChronicleHash} instances.
  * <p>
- * <p>This lock is not reentrant, but kind of "saturating": multiple {@link #lock()} calls have
+ * This lock is not reentrant, but kind of "saturating": multiple {@link #lock()} calls have
  * the same effect as a single call. Likewise {@link #unlock()} -- multiple unlocks, or unlocking
  * when the lock isn't actually held, has no negative effects.
  * <p>
- * <p>Once a lock object obtained, it <i>shouldn't be stored in a field and accessed from multiple
+ * Once a lock object obtained, it <i>shouldn't be stored in a field and accessed from multiple
  * threads</i>, instead of that, lock objects should be obtained in each thread separately, using
  * the same call chain. This is because since the lock is inter-process, it anyway keeps it's
  * synchronization state in shared off-heap memory, but restricting on-heap "view" of shared lock
  * to a single thread is beneficial form performance point-of-view, e. g. fields of the on-heap
  * {@code InterProcessLock} object shouldn't be {@code volatile}.
  * <p>
- * <p>Lock is inter-process, hence it cannot afford to wait for acquisition infinitely, because
+ * Lock is inter-process, hence it cannot afford to wait for acquisition infinitely, because
  * it would be too dead-lock prone. {@link #lock()} throws {@code RuntimeException} after some
  * implementation-defined time spent in waiting for the lock acquisition.
  * <p>
- * <p>{@code InterProcessLock} supports interruption of lock acquisition (in {@link
+ * {@code InterProcessLock} supports interruption of lock acquisition (in {@link
  * #lockInterruptibly()} and {@link #tryLock(long, TimeUnit)} methods).
+ * Note: The Inter-process lock is unfair.
  *
- * @implNote Inter-process lock is unfair.
  * @see InterProcessReadWriteUpdateLock
  */
 public interface InterProcessLock extends Lock {
@@ -86,7 +86,7 @@ public interface InterProcessLock extends Lock {
      * context of {@link InterProcessReadWriteUpdateLock}) is already held by the current thread,
      * this call returns immediately.
      * <p>
-     * <p>If the lock is not available then the current thread enters a busy loop, and after some
+     * If the lock is not available then the current thread enters a busy loop, and after some
      * threshold time spend in a busy loop, the thread <i>might</i> be disabled for thread
      * scheduling purposes and lay dormant until one of three things happens:
      * <p>
@@ -112,15 +112,12 @@ public interface InterProcessLock extends Lock {
      * Acquires the lock only if it is free at the time of invocation, also if the lock is already
      * held by the current thread, this call immediately returns {@code true}.
      * <p>
-     * <p>Acquires the lock if it is available and returns immediately
+     * Acquires the lock if it is available and returns immediately
      * with the value {@code true}.
      * If the lock is not available then this method will return
      * immediately with the value {@code false}.
-     *
-     * @return {@code true} if the lock was acquired and {@code false} otherwise
-     * @throws IllegalMonitorStateException if this method call observes illegal lock state, or some
-     *                                      lock limitations reached (e. g. maximum read lock holders)
-     * @apiNote Example usage: <pre>{@code
+     * <p>
+     * Example usage: <pre>{@code
      * try (ExternalMapQueryContext<K, V, ?> q = map.queryContext(key)) {
      *     if (q.updateLock().tryLock()) {
      *         // highly-probable branch
@@ -143,6 +140,10 @@ public interface InterProcessLock extends Lock {
      *         }
      *     }
      * }}</pre>
+     *
+     * @return {@code true} if the lock was acquired and {@code false} otherwise
+     * @throws IllegalMonitorStateException if this method call observes illegal lock state, or some
+     *                                      lock limitations reached (e. g. maximum read lock holders)
      */
     @Override
     boolean tryLock();
