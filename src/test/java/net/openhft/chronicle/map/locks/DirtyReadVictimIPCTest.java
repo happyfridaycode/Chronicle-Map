@@ -19,7 +19,6 @@ public class DirtyReadVictimIPCTest {
         assumeFalse(OS.isLinux());
     }
 
-
     /**
      * ben.cotton@rutgers.edu -- should we even try to Test IPC compliance via this hack?
      * <p>

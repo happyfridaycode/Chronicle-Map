@@ -154,4 +154,3 @@ class AbstractChronicleMapConverter<K, V> implements Converter {
         return null;
     }
 }
-

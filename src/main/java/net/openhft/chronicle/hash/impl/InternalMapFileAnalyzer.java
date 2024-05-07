@@ -207,7 +207,6 @@ public final class InternalMapFileAnalyzer {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     private static String read8Bit(ByteBuffer buffer, int address, int length) {

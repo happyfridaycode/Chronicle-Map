@@ -26,5 +26,4 @@ public class Issue354bTest {
 
         assertTrue(file.isFile());
     }
-
 }

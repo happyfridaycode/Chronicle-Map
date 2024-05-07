@@ -55,5 +55,4 @@ public class HugeSparseMapTest {
     private boolean isTeamCityAgent() {
         return System.getProperty("teamcity.build.id") != null;
     }
-
 }

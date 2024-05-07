@@ -27,7 +27,5 @@ public class Issue354Test {
         } finally {
             file.delete();
         }
-
     }
-
 }

@@ -20,7 +20,6 @@ public class DirtyReadVictimTest {
         assumeFalse(OS.isLinux());
     }
 
-
     @Test
     public void mainOptimisticNegative() throws IOException {
         try {

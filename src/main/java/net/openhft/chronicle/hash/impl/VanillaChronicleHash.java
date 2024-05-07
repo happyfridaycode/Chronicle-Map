@@ -440,7 +440,6 @@ public abstract class VanillaChronicleHash<K,
             //noinspection unchecked
             globalMutableState.bytesStore(BytesStore.wrap(globalMutableStateBuffer), 0, globalMutableState.maxSize());
         }
-
     }
 
     public final void createInMemoryStoreAndSegments(@NotNull final ChronicleHashResources resources) {

@@ -134,5 +134,4 @@ public class ReadLock implements InterProcessLock {
         return s.localLockState != null &&
                 s.localLockState != UNLOCKED;
     }
-
 }

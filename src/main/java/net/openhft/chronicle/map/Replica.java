@@ -210,4 +210,3 @@ public interface Replica extends Closeable {
         void readExternalEntry(@NotNull Bytes source, byte remoteNodeIdentifier);
     }
 }
-

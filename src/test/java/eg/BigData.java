@@ -195,7 +195,6 @@ public class BigData {
         System.out.println("Time taken to read+update " + count + " entries of 100k attempts " + ((now - start) / 1000.0) + " seconds");
     }
 }
-
 @SuppressWarnings("serial")
 class BigDataStuff implements Externalizable {
     long x;

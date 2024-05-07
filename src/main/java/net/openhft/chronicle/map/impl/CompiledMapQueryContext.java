@@ -1747,7 +1747,6 @@ public class CompiledMapQueryContext<K, V, R> extends ChainingInterface implemen
                     CompiledMapQueryContext.this.localLockState != null &&
                     CompiledMapQueryContext.this.localLockState != UNLOCKED;
         }
-
     }
 
     @Override

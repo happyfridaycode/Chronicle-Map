@@ -59,4 +59,3 @@ final class DummyValueMarshaller implements DataAccess<DummyValue>, SizedReader<
         return INSTANCE;
     }
 }
-

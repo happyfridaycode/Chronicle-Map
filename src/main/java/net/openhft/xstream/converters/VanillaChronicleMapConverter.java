@@ -52,4 +52,3 @@ public class VanillaChronicleMapConverter<K, V> extends AbstractChronicleMapConv
         });
     }
 }
-

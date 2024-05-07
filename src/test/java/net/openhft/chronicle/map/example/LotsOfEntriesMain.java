@@ -39,7 +39,6 @@ interface MyFloats {
 
     public float getValueAt(int index);
 }
-
 /**
  * Created by peter.lawrey on 19/12/14.
  */

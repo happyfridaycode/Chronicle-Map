@@ -74,7 +74,6 @@ public class OSResizesMain {
         return sw.toString();
     }
 }
-
 @SuppressWarnings("serial")
 class ByteArray implements Serializable {
     final byte[] bytes;

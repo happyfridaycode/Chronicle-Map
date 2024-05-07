@@ -9,4 +9,3 @@ public interface ChronicleAcidIsolation extends java.sql.Connection {
     int PHANTOM_READ_INTOLERANT = ChronicleAcidIsolation.TRANSACTION_SERIALIZABLE;
 
 }
-

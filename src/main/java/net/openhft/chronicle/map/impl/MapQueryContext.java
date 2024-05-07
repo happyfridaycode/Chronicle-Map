@@ -64,7 +64,8 @@ import net.openhft.sg.Staged;
         ValueBytesInterop.class,
 
         QueryAlloc.class,
-},
+}
+,
         nested = {
                 ReadLock.class,
                 UpdateLock.class,

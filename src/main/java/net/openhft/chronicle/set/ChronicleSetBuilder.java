@@ -335,6 +335,4 @@ public final class ChronicleSetBuilder<K>
         chronicleMapBuilder.skipCloseOnExitHook(skipCloseOnExitHook);
         return this;
     }
-
 }
-

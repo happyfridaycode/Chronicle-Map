@@ -150,3 +150,4 @@ class ChronicleSetBuilderPrivateAPI<K>
         return mapB.sparseFile();
     }
 }
+

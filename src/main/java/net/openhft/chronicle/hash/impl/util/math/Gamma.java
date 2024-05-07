@@ -576,4 +576,3 @@ class Gamma {
         return -Math.log1p(invGamma1pm1(x));
     }
 }
-

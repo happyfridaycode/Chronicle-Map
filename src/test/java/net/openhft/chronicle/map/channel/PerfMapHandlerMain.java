@@ -52,7 +52,6 @@ Percentile   run1         run2         run3         run4         run5      % Var
 99.999:        374.27       144.13       209.66        36.93        37.57        75.72
 worst:         545.79       302.59       350.72        43.97        80.26        82.30
 
-
 -Durl=tcp://:1248 -Dkeys=1000000 -Dsize=256 -Dpath=/tmp -Dthroughput=1000000 -Diterations=30000000 -DpauseMode=balanced -Dbuffered=true
 -------------------------------- SUMMARY (end to end) us -------------------------------------------
 Percentile   run1         run2         run3         run4         run5      % Variation
@@ -175,7 +174,6 @@ public class PerfMapHandlerMain implements JLBHTask {
         readerThread.start();
     }
 
-
     @Override
     public void warmedUp() {
         JLBHTask.super.warmedUp();
@@ -290,4 +288,3 @@ public class PerfMapHandlerMain implements JLBHTask {
         }
     }
 }
-

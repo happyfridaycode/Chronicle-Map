@@ -312,4 +312,3 @@ public interface ChronicleMap<K, V> extends ConcurrentMap<K, V>,
         throw new UnsupportedOperationException("todo");
     }
 }
-

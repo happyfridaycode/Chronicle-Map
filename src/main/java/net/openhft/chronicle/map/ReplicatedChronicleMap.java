@@ -1046,7 +1046,6 @@ public class ReplicatedChronicleMap<K, V, R> extends VanillaChronicleMap<K, V, R
 
                 return true;
             }
-
         }
 
         @Override
