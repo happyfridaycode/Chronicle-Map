@@ -26,6 +26,7 @@ import net.openhft.chronicle.set.replication.SetRemoteQueryContext;
 
 import java.util.concurrent.TimeUnit;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 class ChronicleSetBuilderPrivateAPI<K>
         implements ChronicleHashBuilderPrivateAPI<K, SetRemoteOperations<K, ?>> {
 
@@ -149,3 +150,4 @@ class ChronicleSetBuilderPrivateAPI<K>
         return mapB.sparseFile();
     }
 }
+

@@ -28,12 +28,13 @@ import net.openhft.chronicle.wire.WireOut;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public final class DoubleDataAccess extends AbstractData<Double>
         implements DataAccess<Double>, Data<Double> {
 
     // Cache fields
     private transient boolean bsInit;
-    private transient BytesStore bs;
+    private transient BytesStore<?, ?> bs;
 
     /**
      * State field

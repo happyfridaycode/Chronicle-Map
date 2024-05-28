@@ -12,6 +12,7 @@ import java.io.IOException;
 import static net.openhft.chronicle.values.Values.newNativeReference;
 import static org.junit.Assume.assumeFalse;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class DirtyReadVictimTest {
 
     @Before
@@ -19,14 +20,13 @@ public class DirtyReadVictimTest {
         assumeFalse(OS.isLinux());
     }
 
-
     @Test
     public void mainOptimisticNegative() throws IOException {
         try {
             System.out.println("\n*****   Optimistic (-) Test\n");
 
-            /**
-             *  ben.cotton@rutgers.edu   START
+            /*
+               ben.cotton@rutgers.edu   START
              */
 
             ChronicleMap<String, BondVOInterface> chm =
@@ -99,8 +99,8 @@ public class DirtyReadVictimTest {
                 }
                 //offHeapLock.unlockWrite(writerStamp);
             }
-            /**
-             *  ben.cotton@rutgers.edu   END
+            /*
+               ben.cotton@rutgers.edu   END
              */
             System.out.println(
                     " ,,@t=" + System.currentTimeMillis() +
@@ -122,8 +122,8 @@ public class DirtyReadVictimTest {
     public void mainOptimisticPositive() {
         System.out.println("\n*****   Optimistic (+) Test\n");
         try {
-            /**
-             *  ben.cotton@rutgers.edu   START
+            /*
+               ben.cotton@rutgers.edu   START
              */
             ChronicleMap<String, BondVOInterface> chm =
                     DirtyReadTolerance.offHeap(
@@ -189,8 +189,8 @@ public class DirtyReadVictimTest {
                     );
                 }
             }
-            /**
-             *  ben.cotton@rutgers.edu   END
+            /*
+               ben.cotton@rutgers.edu   END
              */
             System.out.println(
                     " ,,@t=" + System.currentTimeMillis() +

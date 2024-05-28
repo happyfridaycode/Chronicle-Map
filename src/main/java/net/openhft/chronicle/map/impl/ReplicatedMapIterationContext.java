@@ -66,7 +66,8 @@ import net.openhft.sg.Staged;
 
         ReplicatedTierRecovery.class,
         SegmentsRecovery.class,
-}, nested = {
+}
+, nested = {
         ReadLock.class,
         UpdateLock.class,
         WriteLock.class,
@@ -83,6 +84,7 @@ import net.openhft.sg.Staged;
         ReplicatedMapEntryDelegating.class,
 
         HashEntryChecksumStrategy.class,
-})
+}
+)
 public class ReplicatedMapIterationContext {
 }

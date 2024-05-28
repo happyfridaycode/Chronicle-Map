@@ -47,7 +47,7 @@ public final class PointListSizedMarshaller
     }
 
     @Override
-    public void write(Bytes out, long size, @NotNull List<Point> toWrite) {
+    public void write(Bytes<?> out, long size, @NotNull List<Point> toWrite) {
         toWrite.forEach(point -> {
             out.writeDouble(point.x);
             out.writeDouble(point.y);
@@ -56,7 +56,7 @@ public final class PointListSizedMarshaller
 
     @NotNull
     @Override
-    public List<Point> read(@NotNull Bytes in, long size, List<Point> using) {
+    public List<Point> read(@NotNull Bytes<?> in, long size, List<Point> using) {
         if (size % ELEMENT_SIZE != 0) {
             throw new IORuntimeException("Bytes size should be a multiple of " + ELEMENT_SIZE +
                     ", " + size + " read");

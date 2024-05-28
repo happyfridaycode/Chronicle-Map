@@ -42,7 +42,6 @@ import static java.util.concurrent.TimeUnit.NANOSECONDS;
  * cause the associated test that generated them to itself Assert.fail (which
  * JUnit does not otherwise arrange).  The rules for creating such
  * tests are:
- * <p>
  * <ol>
  * <li> All assertions in code running in generated threads must use
  * the forms {@link #threadFail}, {@link #threadAssertTrue}, {@link
@@ -97,6 +96,7 @@ import static java.util.concurrent.TimeUnit.NANOSECONDS;
  * runs all JSR166 unit tests.</li>
  * </ul>
  */
+@SuppressWarnings({"rawtypes", "unchecked", "deprecation", "serial"})
 public class JSR166TestCase {
 
     /**
@@ -279,6 +279,7 @@ public class JSR166TestCase {
     /**
      * Find missing try { ... } finally { joinPool(e); }
      */
+    @SuppressWarnings("deprecation")
     void checkForkJoinPoolThreadLeaks() throws InterruptedException {
         Thread[] survivors = new Thread[5];
         int count = Thread.enumerate(survivors);
@@ -1182,4 +1183,3 @@ public class JSR166TestCase {
         }
     }
 }
-

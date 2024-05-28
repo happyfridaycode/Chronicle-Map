@@ -39,6 +39,7 @@ import static net.openhft.chronicle.hash.impl.LocalLockState.UNLOCKED;
 /**
  * Generated code
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class CompiledMapQueryContext<K, V, R> extends ChainingInterface implements AutoCloseable , ChecksumEntry , HashEntry<K> , SegmentLock , Alloc , KeyHashCode , LocksInterface , ExternalMapQueryContext<K, V, R> , MapContext<K, V, R> , MapEntry<K, V> , QueryContextInterface<K, V, R> , VanillaChronicleMapHolder<K, V, R> , Absent<K, V> , MapAndSetContext<K, V, R> , ExternalSetQueryContext<K, R> , SetContext<K, R> , SetEntry<K> {
     public boolean readZeroGuarded() {
         if (!(this.locksInit()))
@@ -722,13 +723,13 @@ public class CompiledMapQueryContext<K, V, R> extends ChainingInterface implemen
 
         private long inputKeyBytesSize;
 
-        private BytesStore inputKeyBytesStore = null;
+        private BytesStore<?, ?> inputKeyBytesStore = null;
 
         public boolean inputKeyBytesStoreInit() {
             return (this.inputKeyBytesStore) != null;
         }
 
-        public void initInputKeyBytesStore(BytesStore bytesStore, long offset, long size) {
+        public void initInputKeyBytesStore(BytesStore<?, ?> bytesStore, long offset, long size) {
             boolean wasInputKeyBytesStoreInit = this.inputKeyBytesStoreInit();
             inputKeyBytesStore = bytesStore;
             inputKeyBytesOffset = offset;
@@ -748,7 +749,7 @@ public class CompiledMapQueryContext<K, V, R> extends ChainingInterface implemen
             return this.inputKeyBytesOffset;
         }
 
-        public BytesStore inputKeyBytesStore() {
+        public BytesStore<?, ?> inputKeyBytesStore() {
             assert this.inputKeyBytesStoreInit() : "InputKeyBytesStore should be init";
             return this.inputKeyBytesStore;
         }
@@ -1217,13 +1218,13 @@ public class CompiledMapQueryContext<K, V, R> extends ChainingInterface implemen
 
         private long wrappedValueBytesSize;
 
-        private BytesStore wrappedValueBytesStore;
+        private BytesStore<?, ?> wrappedValueBytesStore;
 
         boolean wrappedValueBytesStoreInit() {
             return (wrappedValueBytesStore) != null;
         }
 
-        public void initWrappedValueBytesStore(BytesStore bytesStore, long offset, long size) {
+        public void initWrappedValueBytesStore(BytesStore<?, ?> bytesStore, long offset, long size) {
             boolean wasWrappedValueBytesStoreInit = this.wrappedValueBytesStoreInit();
             wrappedValueBytesStore = bytesStore;
             wrappedValueBytesOffset = offset;
@@ -1243,7 +1244,7 @@ public class CompiledMapQueryContext<K, V, R> extends ChainingInterface implemen
             return this.wrappedValueBytesOffset;
         }
 
-        public BytesStore wrappedValueBytesStore() {
+        public BytesStore<?, ?> wrappedValueBytesStore() {
             assert this.wrappedValueBytesStoreInit() : "WrappedValueBytesStore should be init";
             return this.wrappedValueBytesStore;
         }
@@ -1673,7 +1674,9 @@ public class CompiledMapQueryContext<K, V, R> extends ChainingInterface implemen
                     CompiledMapQueryContext.this.decrementUpdateGuarded();
                     CompiledMapQueryContext.this.incrementWriteGuarded();
                     CompiledMapQueryContext.this.setLocalLockStateGuarded(LocalLockState.WRITE_LOCKED);
+                    break;
                 case WRITE_LOCKED :
+                    break;
             }
         }
 
@@ -1732,7 +1735,9 @@ public class CompiledMapQueryContext<K, V, R> extends ChainingInterface implemen
                     CompiledMapQueryContext.this.decrementUpdateGuarded();
                     CompiledMapQueryContext.this.incrementWriteGuarded();
                     CompiledMapQueryContext.this.setLocalLockStateGuarded(LocalLockState.WRITE_LOCKED);
+                    break;
                 case WRITE_LOCKED :
+                    break;
             }
         }
 
@@ -1742,7 +1747,6 @@ public class CompiledMapQueryContext<K, V, R> extends ChainingInterface implemen
                     CompiledMapQueryContext.this.localLockState != null &&
                     CompiledMapQueryContext.this.localLockState != UNLOCKED;
         }
-
     }
 
     @Override
@@ -1791,7 +1795,7 @@ PRESENT, ABSENT;    }
     }
 
     public long allocReturnCode(int chunks) {
-        VanillaChronicleHash<?, ?, ?, ?> h = this.h();
+        VanillaChronicleHash<K, ?, ?, ?> h = this.h();
         if (chunks > (h.maxChunksPerEntry)) {
             throw new IllegalArgumentException(((((((this.h().toIdentityString()) + ": Entry is too large: requires ") + chunks) + " chunks, ") + (h.maxChunksPerEntry)) + " is maximum."));
         } 
@@ -2366,7 +2370,7 @@ PRESENT, ABSENT;    }
     }
 
     @Override
-    public Data<K> getInputKeyBytesAsData(BytesStore bytesStore, long offset, long size) {
+    public Data<K> getInputKeyBytesAsData(BytesStore<?, ?> bytesStore, long offset, long size) {
         this.inputKeyBytesData.initInputKeyBytesStore(bytesStore, offset, size);
         return this.inputKeyBytesData;
     }
@@ -3108,7 +3112,7 @@ PRESENT, ABSENT;    }
     }
 
     public void nextTier() {
-        VanillaChronicleHash<?, ?, ?, ?> h = this.h();
+        VanillaChronicleHash<K, ?, ?, ?> h = this.h();
         long nextTierIndex = nextTierIndex();
         if (nextTierIndex == 0) {
             Jvm.debug().on(getClass(), ((("Allocate tier for segment #  " + (segmentIndex())) + " tier ") + ((tier()) + 1)));
@@ -3183,7 +3187,7 @@ PRESENT, ABSENT;    }
 
     void initSegment() {
         boolean wasSegmentInit = this.segmentInit();
-        VanillaChronicleHash<?, ?, ?, ?> h = this.h();
+        VanillaChronicleHash<K, ?, ?, ?> h = this.h();
         long segmentBaseAddr = this.tierBaseAddr();
         segmentBS.set(segmentBaseAddr, h.tierSize);
         segmentBytes.clear();
@@ -4056,7 +4060,7 @@ PRESENT, ABSENT;    }
     }
 
     @Override
-    public Data<V> wrapValueBytesAsData(BytesStore bytesStore, long offset, long size) {
+    public Data<V> wrapValueBytesAsData(BytesStore<?, ?> bytesStore, long offset, long size) {
         Objects.requireNonNull(bytesStore);
         this.checkOnEachPublicOperation();
         WrappedValueBytesData wrapped = this.wrappedValueBytesData;

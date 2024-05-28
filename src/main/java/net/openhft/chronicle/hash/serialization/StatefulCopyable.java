@@ -33,6 +33,7 @@ import net.openhft.chronicle.set.ChronicleSet;
  *
  * @param <T> the type of marshaller, implementing this interface
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public interface StatefulCopyable<T extends StatefulCopyable<T>> {
 
     /**
@@ -48,7 +49,7 @@ public interface StatefulCopyable<T extends StatefulCopyable<T>> {
     static <T> T copyIfNeeded(T possiblyStatefulCopyable) {
         if (possiblyStatefulCopyable instanceof StatefulCopyable) {
             //noinspection unchecked
-            return (T) ((StatefulCopyable) possiblyStatefulCopyable).copy();
+            return (T) ((StatefulCopyable<?>) possiblyStatefulCopyable).copy();
         }
         return possiblyStatefulCopyable;
     }

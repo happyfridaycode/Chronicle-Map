@@ -24,6 +24,7 @@ import net.openhft.chronicle.hash.serialization.SizedWriter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public final class BooleanMarshaller
         implements SizedReader<Boolean>, BytesReader<Boolean>,
         SizedWriter<Boolean>, BytesWriter<Boolean>, EnumMarshallable<BooleanMarshaller> {
@@ -50,12 +51,12 @@ public final class BooleanMarshaller
 
     @NotNull
     @Override
-    public Boolean read(Bytes in, @Nullable Boolean using) {
+    public Boolean read(Bytes<?> in, @Nullable Boolean using) {
         return in.readByte() != 0;
     }
 
     @Override
-    public void write(Bytes out, @NotNull Boolean toWrite) {
+    public void write(Bytes<?> out, @NotNull Boolean toWrite) {
         out.writeByte((byte) (toWrite ? 'Y' : 0));
     }
 

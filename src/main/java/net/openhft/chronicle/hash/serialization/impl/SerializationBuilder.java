@@ -34,6 +34,7 @@ import java.nio.ByteBuffer;
 import static net.openhft.chronicle.hash.serialization.SizeMarshaller.constant;
 import static net.openhft.chronicle.hash.serialization.SizeMarshaller.stopBit;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public final class SerializationBuilder<T> implements Cloneable {
 
     public final Class<T> tClass;
@@ -49,11 +50,11 @@ public final class SerializationBuilder<T> implements Cloneable {
         sizeIsStaticallyKnown = constantSizeMarshaller();
     }
 
-    private static boolean concreteClass(Class c) {
+    private static boolean concreteClass(Class<?> c) {
         return !c.isInterface() && !Modifier.isAbstract(c.getModifiers());
     }
 
-    private static void checkNonMarshallableEnum(Class c) {
+    private static void checkNonMarshallableEnum(Class<?> c) {
         if (Enum.class.isAssignableFrom(c) && (Marshallable.class.isAssignableFrom(c) ||
                 ReadResolvable.class.isAssignableFrom(c))) {
             throw new IllegalArgumentException(c + ": since Chronicle Map 3.9.0, enum marshaller " +

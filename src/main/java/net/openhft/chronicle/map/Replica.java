@@ -28,6 +28,7 @@ import java.util.ArrayList;
 /**
  * @author Rob Austin.
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public interface Replica extends Closeable {
 
     /**
@@ -209,4 +210,3 @@ public interface Replica extends Closeable {
         void readExternalEntry(@NotNull Bytes source, byte remoteNodeIdentifier);
     }
 }
-

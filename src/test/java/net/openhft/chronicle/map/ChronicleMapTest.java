@@ -41,7 +41,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 @org.junit.Ignore("flaky test see - https://teamcity.chronicle.software/repository/download/OpenHFT_ReleaseJob_ReleaseByArtifact/643179:id/ReleaseAutomation/projects/chronicle-map-runTests-1642011539698.log")
-@SuppressWarnings({"unchecked", "ResultOfMethodCallIgnored"})
+@SuppressWarnings({"rawtypes", "unchecked", "ResultOfMethodCallIgnored", "try"})
 public class ChronicleMapTest {
 
     static final LongValue ONE = Values.newHeapInstance(LongValue.class);
@@ -1072,7 +1072,7 @@ public class ChronicleMapTest {
                                             MapEntry<?, LongValue> entry = c.entry();
                                             if (entry != null) {
                                                 net.openhft.chronicle.hash.Data<LongValue> v = entry.value();
-                                                n = ((BytesStore) v.bytes()).addAndGetLong(
+                                                n = ((BytesStore<?, ?>) v.bytes()).addAndGetLong(
                                                         v.offset(), 1);
                                             } else {
                                                 c.insert(c.absentEntry(), c.wrapValueAsData(ONE));
@@ -1353,7 +1353,7 @@ public class ChronicleMapTest {
     @Test
     public void entrySetIteratorRemoveReflectedInMapAndOtherViews() throws IOException {
         try (ChronicleMap<Integer, CharSequence> map = getViewTestMap(3)) {
-            Map<Integer, CharSequence> refMap = new HashMap(map);
+            Map<Integer, CharSequence> refMap = new HashMap<>(map);
             Set<Map.Entry<Integer, CharSequence>> entrySet = map.entrySet();
             Set<Integer> keySet = map.keySet();
             Collection<CharSequence> values = map.values();
@@ -1374,7 +1374,7 @@ public class ChronicleMapTest {
     @Test
     public void keySetIteratorRemoveReflectedInMapAndOtherViews() throws IOException {
         try (ChronicleMap<Integer, CharSequence> map = getViewTestMap(3)) {
-            Map<Integer, CharSequence> refMap = new HashMap(map);
+            Map<Integer, CharSequence> refMap = new HashMap<>(map);
             Set<Map.Entry<Integer, CharSequence>> entrySet = map.entrySet();
             Set<Integer> keySet = map.keySet();
             Collection<CharSequence> values = map.values();
@@ -1577,7 +1577,7 @@ public class ChronicleMapTest {
         try (ChronicleMap<Integer, CharSequence> map = getViewTestMap(noOfElements)) {
 
             int sum = 0;
-            for (Iterator it = map.entrySet().iterator(); it.hasNext(); ) {
+            for (Iterator<Map.Entry<Integer, CharSequence>> it = map.entrySet().iterator(); it.hasNext(); ) {
                 it.next();
                 it.remove();
                 ++sum;
@@ -1600,7 +1600,7 @@ public class ChronicleMapTest {
             }
 
             int sum = 0;
-            for (Iterator it = map.keySet().iterator(); it.hasNext(); ) {
+            for (Iterator<Integer> it = map.keySet().iterator(); it.hasNext(); ) {
                 Object key = it.next();
                 keys.remove(key);
                 it.remove();
@@ -1626,7 +1626,7 @@ public class ChronicleMapTest {
         try (ChronicleMap<Integer, CharSequence> map = getViewTestMap(noOfElements)) {
 
             int sum = 0;
-            for (Iterator it = map.values().iterator(); it.hasNext(); ) {
+            for (Iterator<CharSequence> it = map.values().iterator(); it.hasNext(); ) {
                 it.next();
                 it.remove();
                 ++sum;
@@ -1922,4 +1922,3 @@ public class ChronicleMapTest {
         }
     }
 }
-

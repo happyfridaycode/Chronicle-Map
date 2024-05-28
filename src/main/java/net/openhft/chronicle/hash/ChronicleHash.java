@@ -33,6 +33,7 @@ import java.util.function.Predicate;
 /**
  * Common base interface for {@link ChronicleMap} and {@link ChronicleSet}.
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public interface ChronicleHash<K, E extends HashEntry<K>, SC extends HashSegmentContext<K, ?>,
         EQC extends ExternalHashQueryContext<K>> extends MapClosable {
     /**
@@ -143,7 +144,7 @@ public interface ChronicleHash<K, E extends HashEntry<K>, SC extends HashSegment
      * @return the context to perform operations with the key
      */
     @NotNull
-    EQC queryContext(BytesStore keyBytes, long offset, long size);
+    EQC queryContext(BytesStore<?, ?> keyBytes, long offset, long size);
 
     /**
      * Returns a context of the segment with the given index. Segments are indexed from 0 to {@link #segments()}{@code - 1}.

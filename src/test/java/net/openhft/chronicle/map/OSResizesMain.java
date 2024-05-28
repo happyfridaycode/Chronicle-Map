@@ -26,6 +26,7 @@ import java.util.Arrays;
  * <p>
  * System memory: 7.7 GB, Extents of map: 2199.0 GB, disk used: 13MB, addressRange: 7d380b7bd000-7f380c000000
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class OSResizesMain {
     public static void main(String[] args) throws IOException, InterruptedException {
         File file = File.createTempFile("over-sized", "deleteme");
@@ -73,7 +74,7 @@ public class OSResizesMain {
         return sw.toString();
     }
 }
-
+@SuppressWarnings("serial")
 class ByteArray implements Serializable {
     final byte[] bytes;
 

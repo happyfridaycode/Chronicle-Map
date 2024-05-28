@@ -69,7 +69,7 @@ import static net.openhft.chronicle.hash.replication.TimeProvider.currentTime;
  * nature of this multi master implementation,  this return value will only be the old value on the
  * nodes local data store. In other words the nodes are only concurrent locally. Its worth realising
  * that another node performing exactly the same operation may return a different value. However
- * reconciliation will ensure the maps themselves become eventually consistent. </p>
+ * reconciliation will ensure the maps themselves become eventually consistent.
  *
  * <h2>Reconciliation </h2>
  * <p>If two ( or more nodes ) were to receive a change to their maps for
@@ -82,7 +82,7 @@ import static net.openhft.chronicle.hash.replication.TimeProvider.currentTime;
  * and value. Eventual consistency is achieved by looking at the timestamp from the remote node, if
  * for a given key, the remote nodes timestamp is newer than the local nodes timestamp, then the
  * event from the remote node will be applied to the local node, otherwise the event will be
- * ignored. </p>
+ * ignored.
  * <p>However there is an edge case that we have to concern ourselves with, If two
  * nodes update their map at the same time with different values, we have to deterministically
  * resolve which update wins, because of eventual consistency both nodes should end up locally
@@ -95,11 +95,12 @@ import static net.openhft.chronicle.hash.replication.TimeProvider.currentTime;
  * node with the smallest identifier wins. </p>
  * <p>This a one of the basic building blocks needed to implement a fully-functioning Chronicle Map
  * cluster, such as that provided in
- * <a href="http://chronicle.software/products/chronicle-map/">Chronicle Map Enterprise</a>.</p>
+ * <a href="http://chronicle.software/products/chronicle-map/">Chronicle Map Enterprise</a>.
  *
  * @param <K> the entries key type
  * @param <V> the entries value type
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class ReplicatedChronicleMap<K, V, R> extends VanillaChronicleMap<K, V, R>
         implements Replica, Replica.EntryExternalizable {
 
@@ -1045,7 +1046,6 @@ public class ReplicatedChronicleMap<K, V, R> extends VanillaChronicleMap<K, V, R
 
                 return true;
             }
-
         }
 
         @Override

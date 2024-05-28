@@ -34,11 +34,12 @@ import org.jetbrains.annotations.NotNull;
 import static net.openhft.chronicle.map.VanillaChronicleMap.alignAddr;
 
 @Staged
+@SuppressWarnings({"rawtypes", "unchecked"})
 public abstract class MapEntryStages<K, V> extends HashEntryStages<K>
         implements MapEntry<K, V> {
 
     @StageRef
-    public VanillaChronicleMapHolder<?, ?, ?> mh;
+    public VanillaChronicleMapHolder<K, V, ?> mh;
     @StageRef
     public AllocatedChunks allocatedChunks;
     public long valueSizeOffset = -1;
@@ -130,9 +131,9 @@ public abstract class MapEntryStages<K, V> extends HashEntryStages<K>
         if (newValueSizeIsDifferent) {
             long newSizeOfEverythingBeforeValue = newSizeOfEverythingBeforeValue(newValue);
             long entryStartOffset = keySizeOffset;
-            VanillaChronicleMap<?, ?, ?> m = mh.m();
+            VanillaChronicleMap<K, V, ?> m = mh.m();
             long newValueOffset =
-                    alignAddr(entryStartOffset + newSizeOfEverythingBeforeValue, mh.m().alignment);
+                    alignAddr(entryStartOffset + newSizeOfEverythingBeforeValue, m.alignment);
             long newEntrySize = newEntrySize(newValue, entryStartOffset, newValueOffset);
             int newSizeInChunks = m.inChunks(newEntrySize);
             newValueDoesNotFit:

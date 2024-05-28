@@ -139,6 +139,7 @@ import static net.openhft.chronicle.map.VanillaChronicleMap.alignAddr;
  * @see ChronicleMap
  * @see ChronicleSetBuilder
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public final class ChronicleMapBuilder<K, V> implements
         ChronicleHashBuilder<K, ChronicleMap<K, V>,
                 ChronicleMapBuilder<K, V>> {
@@ -1583,28 +1584,6 @@ public final class ChronicleMapBuilder<K, V> implements
         // computes some state based on configurations, but doesn't synchronize on configuration
         // changes.
         return clone().createWithFile(file, false, false, null);
-    }
-
-    @Override
-    public ChronicleMap<K, V> createOrRecoverPersistedTo(@NotNull final File file) throws IOException {
-        return createOrRecoverPersistedTo(file, true);
-    }
-
-    @Override
-    public ChronicleMap<K, V> createOrRecoverPersistedTo(@NotNull final File file, final boolean sameLibraryVersion)
-            throws IOException {
-        return createOrRecoverPersistedTo(file, sameLibraryVersion, DEFAULT_CHRONICLE_MAP_CORRUPTION_LISTENER);
-    }
-
-    @Override
-    public ChronicleMap<K, V> createOrRecoverPersistedTo(@NotNull final File file,
-                                                         final boolean sameLibraryVersion,
-                                                         @Nullable final ChronicleHashCorruption.Listener corruptionListener) throws IOException {
-        if (file.exists()) {
-            return recoverPersistedTo(file, sameLibraryVersion, corruptionListener);
-        } else {
-            return createPersistedTo(file);
-        }
     }
 
     @Override

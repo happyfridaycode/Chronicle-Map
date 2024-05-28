@@ -28,17 +28,18 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class SerializableReader<T extends Serializable> implements SizedReader<T>, BytesReader<T> {
 
     @NotNull
     @Override
-    public T read(@NotNull Bytes in, long size, @Nullable T using) {
+    public T read(@NotNull Bytes<?> in, long size, @Nullable T using) {
         return read(in, using);
     }
 
     @NotNull
     @Override
-    public T read(Bytes in, @Nullable T using) {
+    public T read(Bytes<?> in, @Nullable T using) {
         try {
             return (T) new ObjectInputStream(in.inputStream()).readObject();
         } catch (IOException | ClassNotFoundException e) {

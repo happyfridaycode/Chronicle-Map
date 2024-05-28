@@ -22,9 +22,8 @@ public class Issue354bTest {
         ChronicleMap<LongValue, LongValue> map = ChronicleMapBuilder.of(LongValue.class, LongValue.class)
                 .name("test")
                 .entries(5)
-                .createOrRecoverPersistedTo(file, true);
+                .createPersistedTo(file);
 
         assertTrue(file.isFile());
     }
-
 }

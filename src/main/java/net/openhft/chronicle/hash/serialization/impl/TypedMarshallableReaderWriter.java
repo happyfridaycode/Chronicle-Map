@@ -12,6 +12,7 @@ import net.openhft.chronicle.wire.Wires;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class TypedMarshallableReaderWriter<V extends Marshallable>
         extends CachingCreatingMarshaller<V> {
 
@@ -21,9 +22,9 @@ public class TypedMarshallableReaderWriter<V extends Marshallable>
 
     @NotNull
     @Override
-    public V read(Bytes in, long size, @Nullable V using) {
+    public V read(Bytes<?> in, long size, @Nullable V using) {
         BinaryWire wire = Wires.binaryWireForRead(in, in.readPosition(), size);
-        return (V) wire.getValueIn().object(using, tClass());
+        return wire.getValueIn().object(using, tClass());
     }
 
     protected void writeToWire(Wire wire, @NotNull V toWrite) {

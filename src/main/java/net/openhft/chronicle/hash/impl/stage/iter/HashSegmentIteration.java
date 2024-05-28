@@ -30,6 +30,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 @Staged
+@SuppressWarnings({"rawtypes", "unchecked"})
 public abstract class HashSegmentIteration<K, E extends HashEntry<K>>
         implements HashEntry<K>, HashSegmentContext<K, E> {
 
@@ -44,7 +45,7 @@ public abstract class HashSegmentIteration<K, E extends HashEntry<K>>
     @StageRef
     HashEntryStages<K> e;
     @StageRef
-    VanillaChronicleHashHolder<?> hh;
+    VanillaChronicleHashHolder<K> hh;
 
     public boolean shouldTestEntry() {
         return true;

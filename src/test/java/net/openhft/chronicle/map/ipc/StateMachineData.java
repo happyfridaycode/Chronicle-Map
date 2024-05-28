@@ -25,8 +25,9 @@ import java.nio.channels.FileLock;
 /**
  *
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class StateMachineData implements Byteable {
-    private BytesStore bs;
+    private BytesStore<?, ?> bs;
     private long offset;
 
     /**
@@ -150,7 +151,7 @@ public class StateMachineData implements Byteable {
     }
 
     @Override
-    public BytesStore bytesStore() {
+    public BytesStore<?, ?> bytesStore() {
         return this.bs;
     }
 

@@ -169,5 +169,4 @@ public abstract class ThreadLocalState {
     protected boolean isLocked() {
         return contextLock == CONTEXT_LOCKED_LOCALLY;
     }
-
 }

@@ -35,6 +35,7 @@ import java.util.function.Predicate;
 /**
  * @author Rob Austin.
  */
+@SuppressWarnings({"rawtypes", "unchecked", "serial"})
 public class ReplicationCheckingMap<K, V> implements ChronicleMap<K, V> {
 
     ChronicleMap<K, V> map1;
@@ -106,7 +107,7 @@ public class ReplicationCheckingMap<K, V> implements ChronicleMap<K, V> {
         if (r1 != null)
             Assert.assertEquals(r1.toString(), r2.toString());
 
-        return (R) r1;
+        return r1;
     }
 
     @Override
@@ -296,7 +297,7 @@ public class ReplicationCheckingMap<K, V> implements ChronicleMap<K, V> {
     @NotNull
     @Override
     public ExternalMapQueryContext<K, V, ?> queryContext(
-            BytesStore keyBytes, long offset, long size) {
+            BytesStore<?, ?> keyBytes, long offset, long size) {
         throw new UnsupportedOperationException();
     }
 

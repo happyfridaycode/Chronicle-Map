@@ -26,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
  * deprecated in favor of {@link LongDataAccess}. As reader and element writer for {@link
  * ListMarshaller} and similar composite marshallers, {@code LongMarshaller} is not deprecated.
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public final class LongMarshaller
         implements SizedReader<Long>, BytesReader<Long>,
         SizedWriter<Long>, BytesWriter<Long>, EnumMarshallable<LongMarshaller> {
@@ -52,12 +53,12 @@ public final class LongMarshaller
 
     @NotNull
     @Override
-    public Long read(Bytes in, @Nullable Long using) {
+    public Long read(Bytes<?> in, @Nullable Long using) {
         return in.readLong();
     }
 
     @Override
-    public void write(Bytes out, @NotNull Long toWrite) {
+    public void write(Bytes<?> out, @NotNull Long toWrite) {
         out.writeLong(toWrite);
     }
 

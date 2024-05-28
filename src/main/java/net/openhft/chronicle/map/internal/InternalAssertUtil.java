@@ -25,5 +25,4 @@ public final class InternalAssertUtil {
         assert position >= 0 : "position is negative: " + position;
         return true;
     }
-
 }

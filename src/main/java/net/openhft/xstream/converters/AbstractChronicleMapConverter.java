@@ -33,10 +33,11 @@ import static net.openhft.chronicle.values.ValueModel.$$NATIVE;
 /**
  * @author Rob Austin.
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 class AbstractChronicleMapConverter<K, V> implements Converter {
 
     private final Map<K, V> map;
-    private final Class mapClazz;
+    private final Class<?> mapClazz;
 
     AbstractChronicleMapConverter(@NotNull Map<K, V> map) {
         this.map = map;
@@ -63,7 +64,7 @@ class AbstractChronicleMapConverter<K, V> implements Converter {
         return (E) unmarshallingContext.convertAnother(null, forName(reader.getNodeName()));
     }
 
-    private static Class forName(String clazz) {
+    private static Class<?> forName(String clazz) {
 
         try {
             return Class.forName(clazz);
@@ -87,6 +88,7 @@ class AbstractChronicleMapConverter<K, V> implements Converter {
         }
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public boolean canConvert(Class aClass) {
         //noinspection unchecked
@@ -152,4 +154,3 @@ class AbstractChronicleMapConverter<K, V> implements Converter {
         return null;
     }
 }
-

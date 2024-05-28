@@ -46,6 +46,7 @@ import static net.openhft.chronicle.hash.impl.LocalLockState.UNLOCKED;
 /**
  * Generated code
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class CompiledReplicatedMapQueryContext<K, V, R> extends ChainingInterface implements AutoCloseable , ChecksumEntry , HashEntry<K> , SegmentLock , Alloc , KeyHashCode , LocksInterface , RemoteOperationContext<K> , ReplicableEntry , ExternalMapQueryContext<K, V, R> , MapContext<K, V, R> , MapEntry<K, V> , Replica.QueryContext<K, V> , QueryContextInterface<K, V, R> , ReplicatedChronicleMapHolder<K, V, R> , Absent<K, V> , MapAndSetContext<K, V, R> , MapRemoteQueryContext<K, V, R> , MapReplicableEntry<K, V> , ExternalSetQueryContext<K, R> , SetContext<K, R> , SetEntry<K> , SetRemoteQueryContext<K, R> , SetReplicableEntry<K> {
     public boolean readZeroGuarded() {
         if (!(this.locksInit()))
@@ -751,13 +752,13 @@ public class CompiledReplicatedMapQueryContext<K, V, R> extends ChainingInterfac
 
         private long inputKeyBytesSize;
 
-        private BytesStore inputKeyBytesStore = null;
+        private BytesStore<?, ?> inputKeyBytesStore = null;
 
         public boolean inputKeyBytesStoreInit() {
             return (this.inputKeyBytesStore) != null;
         }
 
-        public void initInputKeyBytesStore(BytesStore bytesStore, long offset, long size) {
+        public void initInputKeyBytesStore(BytesStore<?, ?> bytesStore, long offset, long size) {
             boolean wasInputKeyBytesStoreInit = this.inputKeyBytesStoreInit();
             inputKeyBytesStore = bytesStore;
             inputKeyBytesOffset = offset;
@@ -777,7 +778,7 @@ public class CompiledReplicatedMapQueryContext<K, V, R> extends ChainingInterfac
             return this.inputKeyBytesOffset;
         }
 
-        public BytesStore inputKeyBytesStore() {
+        public BytesStore<?, ?> inputKeyBytesStore() {
             assert this.inputKeyBytesStoreInit() : "InputKeyBytesStore should be init";
             return this.inputKeyBytesStore;
         }
@@ -1277,13 +1278,13 @@ public class CompiledReplicatedMapQueryContext<K, V, R> extends ChainingInterfac
 
         private long wrappedValueBytesSize;
 
-        private BytesStore wrappedValueBytesStore;
+        private BytesStore<?, ?> wrappedValueBytesStore;
 
         boolean wrappedValueBytesStoreInit() {
             return (wrappedValueBytesStore) != null;
         }
 
-        public void initWrappedValueBytesStore(BytesStore bytesStore, long offset, long size) {
+        public void initWrappedValueBytesStore(BytesStore<?, ?> bytesStore, long offset, long size) {
             boolean wasWrappedValueBytesStoreInit = this.wrappedValueBytesStoreInit();
             wrappedValueBytesStore = bytesStore;
             wrappedValueBytesOffset = offset;
@@ -1303,7 +1304,7 @@ public class CompiledReplicatedMapQueryContext<K, V, R> extends ChainingInterfac
             return this.wrappedValueBytesOffset;
         }
 
-        public BytesStore wrappedValueBytesStore() {
+        public BytesStore<?, ?> wrappedValueBytesStore() {
             assert this.wrappedValueBytesStoreInit() : "WrappedValueBytesStore should be init";
             return this.wrappedValueBytesStore;
         }
@@ -1733,7 +1734,9 @@ public class CompiledReplicatedMapQueryContext<K, V, R> extends ChainingInterfac
                     CompiledReplicatedMapQueryContext.this.decrementUpdateGuarded();
                     CompiledReplicatedMapQueryContext.this.incrementWriteGuarded();
                     CompiledReplicatedMapQueryContext.this.setLocalLockStateGuarded(LocalLockState.WRITE_LOCKED);
+                    break;
                 case WRITE_LOCKED :
+                    break;
             }
         }
 
@@ -1792,7 +1795,9 @@ public class CompiledReplicatedMapQueryContext<K, V, R> extends ChainingInterfac
                     CompiledReplicatedMapQueryContext.this.decrementUpdateGuarded();
                     CompiledReplicatedMapQueryContext.this.incrementWriteGuarded();
                     CompiledReplicatedMapQueryContext.this.setLocalLockStateGuarded(LocalLockState.WRITE_LOCKED);
+                    break;
                 case WRITE_LOCKED :
+                    break;
             }
         }
 
@@ -1871,7 +1876,7 @@ PRESENT, ABSENT;    }
     }
 
     public long allocReturnCode(int chunks) {
-        VanillaChronicleHash<?, ?, ?, ?> h = this.h();
+        VanillaChronicleHash<K, ?, ?, ?> h = this.h();
         if (chunks > (h.maxChunksPerEntry)) {
             throw new IllegalArgumentException(((((((this.h().toIdentityString()) + ": Entry is too large: requires ") + chunks) + " chunks, ") + (h.maxChunksPerEntry)) + " is maximum."));
         } 
@@ -2115,7 +2120,7 @@ PRESENT, ABSENT;    }
 
         @Override
         public void accept(ReplicableEntry e) {
-            ReplicatedChronicleMap<?, ?, ?> map = CompiledReplicatedMapQueryContext.this.m();
+            ReplicatedChronicleMap<K, V, R> map = CompiledReplicatedMapQueryContext.this.m();
             if ((!(e instanceof MapAbsentEntry)) || ((iterationContext.pos()) == (posToSkip)))
                 return ;
             
@@ -2610,7 +2615,7 @@ PRESENT, ABSENT;    }
     }
 
     @Override
-    public Data<K> getInputKeyBytesAsData(BytesStore bytesStore, long offset, long size) {
+    public Data<K> getInputKeyBytesAsData(BytesStore<?, ?> bytesStore, long offset, long size) {
         this.inputKeyBytesData.initInputKeyBytesStore(bytesStore, offset, size);
         return this.inputKeyBytesData;
     }
@@ -3056,7 +3061,7 @@ PRESENT, ABSENT;    }
     }
 
     public void nextTier() {
-        VanillaChronicleHash<?, ?, ?, ?> h = this.h();
+        VanillaChronicleHash<K, ?, ?, ?> h = this.h();
         long nextTierIndex = nextTierIndex();
         if (nextTierIndex == 0) {
             Jvm.debug().on(getClass(), ((("Allocate tier for segment #  " + (segmentIndex())) + " tier ") + ((tier()) + 1)));
@@ -3131,7 +3136,7 @@ PRESENT, ABSENT;    }
 
     void initSegment() {
         boolean wasSegmentInit = this.segmentInit();
-        VanillaChronicleHash<?, ?, ?, ?> h = this.h();
+        VanillaChronicleHash<K, ?, ?, ?> h = this.h();
         long segmentBaseAddr = this.tierBaseAddr();
         segmentBS.set(segmentBaseAddr, h.tierSize);
         segmentBytes.clear();
@@ -3772,7 +3777,7 @@ PRESENT, ABSENT;    }
         long firstAttemptedTierBaseAddr = this.tierBaseAddr();
         boolean cleanedFirstAttemptedTier = forcedOldDeletedEntriesCleanup(prevPos);
         if (cleanedFirstAttemptedTier) {
-            ((CompiledReplicatedMapQueryContext)((Object)(this))).closeSearchKey();
+            ((CompiledReplicatedMapQueryContext<?, ?, ?>)((Object)(this))).closeSearchKey();
         } 
         this.goToFirstTier();
         while (true) {
@@ -4506,7 +4511,7 @@ PRESENT, ABSENT;    }
     }
 
     @Override
-    public Data<V> wrapValueBytesAsData(BytesStore bytesStore, long offset, long size) {
+    public Data<V> wrapValueBytesAsData(BytesStore<?, ?> bytesStore, long offset, long size) {
         Objects.requireNonNull(bytesStore);
         this.checkOnEachPublicOperation();
         WrappedValueBytesData wrapped = this.wrappedValueBytesData;
@@ -4706,8 +4711,8 @@ PRESENT, ABSENT;    }
         if (newValueSizeIsDifferent) {
             long newSizeOfEverythingBeforeValue = newSizeOfEverythingBeforeValue(newValue);
             long entryStartOffset = keySizeOffset();
-            VanillaChronicleMap<?, ?, ?> m = this.m();
-            long newValueOffset = VanillaChronicleMap.alignAddr((entryStartOffset + newSizeOfEverythingBeforeValue), this.m().alignment);
+            ReplicatedChronicleMap<K, V, R> m = this.m();
+            long newValueOffset = VanillaChronicleMap.alignAddr((entryStartOffset + newSizeOfEverythingBeforeValue), m.alignment);
             long newEntrySize = newEntrySize(newValue, entryStartOffset, newValueOffset);
             int newSizeInChunks = m.inChunks(newEntrySize);
             newValueDoesNotFit : if (newSizeInChunks > (entrySizeInChunks())) {

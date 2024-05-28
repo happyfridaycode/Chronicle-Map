@@ -67,7 +67,7 @@ public interface InterProcessLock extends Lock {
      * InterProcessReadWriteUpdateLock}) is already held by the current thread, this call returns
      * immediately.
      * <p>
-     * <p>If the lock is not available then the current thread enters a busy loop. After some
+     * If the lock is not available then the current thread enters a busy loop. After some
      * threshold time spent in a busy loop, the thread <i>might</i> be disabled for thread
      * scheduling purposes and lay dormant until the lock has been acquired. After some
      * implementation-defined time spent in waiting for the lock acquisition,
@@ -89,7 +89,6 @@ public interface InterProcessLock extends Lock {
      * If the lock is not available then the current thread enters a busy loop, and after some
      * threshold time spend in a busy loop, the thread <i>might</i> be disabled for thread
      * scheduling purposes and lay dormant until one of three things happens:
-     * <p>
      * <ul>
      * <li>The lock is acquired by the current thread, then {@code lockInterruptibly()} successfully
      * returns.

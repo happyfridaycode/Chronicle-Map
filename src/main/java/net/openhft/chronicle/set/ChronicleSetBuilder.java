@@ -40,6 +40,7 @@ import java.io.IOException;
  * @see ChronicleSet
  * @see ChronicleMapBuilder
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public final class ChronicleSetBuilder<K>
         implements ChronicleHashBuilder<K, ChronicleSet<K>, ChronicleSetBuilder<K>> {
 
@@ -308,27 +309,6 @@ public final class ChronicleSetBuilder<K>
     }
 
     @Override
-    public ChronicleSet<K> createOrRecoverPersistedTo(File file) throws IOException {
-        return createOrRecoverPersistedTo(file, true);
-    }
-
-    @Override
-    public ChronicleSet<K> createOrRecoverPersistedTo(File file, boolean sameLibraryVersion)
-            throws IOException {
-        return createOrRecoverPersistedTo(file, sameLibraryVersion,
-                defaultChronicleSetCorruptionListener);
-    }
-
-    @Override
-    public ChronicleSet<K> createOrRecoverPersistedTo(
-            File file, boolean sameLibraryVersion,
-            ChronicleHashCorruption.Listener corruptionListener) throws IOException {
-        ChronicleMap<K, DummyValue> map = chronicleMapBuilder.createOrRecoverPersistedTo(
-                file, sameLibraryVersion, corruptionListener);
-        return new SetFromMap<>((VanillaChronicleMap<K, DummyValue, ?>) map);
-    }
-
-    @Override
     public ChronicleSet<K> recoverPersistedTo(File file, boolean sameBuilderConfigAndLibraryVersion)
             throws IOException {
         return recoverPersistedTo(file, sameBuilderConfigAndLibraryVersion,
@@ -355,6 +335,4 @@ public final class ChronicleSetBuilder<K>
         chronicleMapBuilder.skipCloseOnExitHook(skipCloseOnExitHook);
         return this;
     }
-
 }
-

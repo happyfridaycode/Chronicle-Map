@@ -163,7 +163,8 @@ public class RecoverTest {
         try (ChronicleMap<Integer, LongValue> ignore = ChronicleMap
                 .of(Integer.class, LongValue.class)
                 .entries(1)
-                .createOrRecoverPersistedTo(file, true, corruptionListener)) {
+                .recoverPersistedTo(file, true, corruptionListener)) {
+            assertNotNull(ignore);
         }
         assertTrue(corruptionCounter.get() > 0);
     }

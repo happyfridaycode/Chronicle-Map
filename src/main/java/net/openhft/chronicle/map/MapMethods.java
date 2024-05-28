@@ -253,8 +253,7 @@ public interface MapMethods<K, V, R> {
 
     /**
      * Backing {@link ChronicleMap#replace(Object, Object)} method.
-     *
-     * @implNote the default implementation is equivalent to <pre>{@code
+     * Note: the default implementation is equivalent to <pre>{@code
      * // replace(key, value) should find the key & put the value most of the time,
      * // so don't try to check key presence under read lock first,
      * // as in putIfAbsent()/acquireUsing(), start with update lock:

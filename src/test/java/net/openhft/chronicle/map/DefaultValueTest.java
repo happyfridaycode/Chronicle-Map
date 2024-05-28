@@ -41,11 +41,12 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class DefaultValueTest {
 
     @Test
     public void test1() {
-        Bytes bytes = Bytes.allocateElasticOnHeap();
+        Bytes<byte[]> bytes = Bytes.allocateElasticOnHeap();
 
         final Wire wire = WireType.BINARY.apply(bytes);
 
@@ -80,13 +81,13 @@ public class DefaultValueTest {
         String y;
 
         @Override
-        public void readMarshallable(BytesIn bytes) throws IORuntimeException, BufferUnderflowException, IllegalStateException {
+        public void readMarshallable(BytesIn<?> bytes) throws IORuntimeException, BufferUnderflowException, IllegalStateException {
             x = bytes.readInt();
             y = bytes.readUtf8();
         }
 
         @Override
-        public void writeMarshallable(BytesOut bytes) throws IllegalStateException, BufferOverflowException, BufferUnderflowException, ArithmeticException {
+        public void writeMarshallable(BytesOut<?> bytes) throws IllegalStateException, BufferOverflowException, BufferUnderflowException, ArithmeticException {
             bytes.writeInt(x);
             bytes.writeUtf8(y);
         }
@@ -127,5 +128,4 @@ public class DefaultValueTest {
             file.delete();
         }
     }
-
 }

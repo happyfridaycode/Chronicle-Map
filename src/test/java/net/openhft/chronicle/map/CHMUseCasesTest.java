@@ -100,7 +100,7 @@ interface IData extends BytesMarshallable {
         }
 
         @Override
-        public void readMarshallable(@NotNull BytesIn in) throws IllegalStateException {
+        public void readMarshallable(@NotNull BytesIn<?> in) throws IllegalStateException {
             long magic = in.readLong();
             if (magic != MAGIC)
                 throw new AssertionError("Start " + Long.toHexString(magic));
@@ -112,7 +112,7 @@ interface IData extends BytesMarshallable {
         }
 
         @Override
-        public void writeMarshallable(@NotNull BytesOut out) {
+        public void writeMarshallable(@NotNull BytesOut<?> out) {
             out.writeLong(MAGIC);
             out.writeUtf8(text);
             out.writeInt(number);
@@ -149,11 +149,11 @@ interface IBean {
 
     }
 }
-
 /**
  * This test enumerates common use cases for keys and values.
  */
 @RunWith(value = Parameterized.class)
+@SuppressWarnings({"rawtypes", "unchecked", "try", "serial"})
 public class CHMUseCasesTest {
 
     private final TypeOfMap typeOfMap;
@@ -403,7 +403,7 @@ public class CHMUseCasesTest {
     @Test
     public void bondExample() throws IOException {
 
-        ChronicleMapBuilder builder = ChronicleMapBuilder.of(String.class, BondVOInterface.class)
+        ChronicleMapBuilder<String, BondVOInterface> builder = ChronicleMapBuilder.of(String.class, BondVOInterface.class)
                 .entries(1)
                 .averageKeySize(10);
 
@@ -887,7 +887,7 @@ public class CHMUseCasesTest {
 
         try (ChronicleMap<Integer, Integer> map = newInstance(builder)) {
 
-            assertEquals(1, ((VanillaChronicleMap) map).maxChunksPerEntry);
+            assertEquals(1, ((VanillaChronicleMap<?, ?, ?>) map).maxChunksPerEntry);
             Integer key1;
             Integer key2;
             Integer value1;
@@ -986,7 +986,7 @@ public class CHMUseCasesTest {
 
         try (ChronicleMap<Double, Double> map = newInstance(builder)) {
 
-            assertEquals(1, ((VanillaChronicleMap) map).maxChunksPerEntry);
+            assertEquals(1, ((VanillaChronicleMap<?, ?, ?>) map).maxChunksPerEntry);
             map.put(1.0, 11.0);
             assertEquals((Double) 11.0, map.get(1.0));
 
@@ -1195,6 +1195,7 @@ public class CHMUseCasesTest {
         }
     }
 
+    @SuppressWarnings("cast")
     @Test
     public void testByteBufferDirectByteBufferMap()
             throws IOException {
@@ -1211,9 +1212,9 @@ public class CHMUseCasesTest {
             final ByteBuffer key1 = useOnHeapKey
                     ? ByteBuffer.wrap(new byte[]{1, 1, 1, 1})
 
-                    : ((ByteBuffer) ByteBuffer.allocateDirect(4)
+                    : ((ByteBuffer) (ByteBuffer.allocateDirect(4)
                     .put(new byte[]{1, 1, 1, 1})
-                    .flip())
+                    .flip()))
                     .asReadOnlyBuffer();
 
             final ByteBuffer key2 = ByteBuffer.wrap(new byte[]{2, 2, 2, 2});
@@ -1276,7 +1277,7 @@ public class CHMUseCasesTest {
         try (ChronicleMap<IntValue, IntValue> map = newInstance(builder)) {
             // this may change due to alignment
 //            assertEquals(8, entrySize(map));
-            assertEquals(1, ((VanillaChronicleMap) map).maxChunksPerEntry);
+            assertEquals(1, ((VanillaChronicleMap<?, ?, ?>) map).maxChunksPerEntry);
             IntValue key1 = Values.newHeapInstance(IntValue.class);
             IntValue key2 = Values.newHeapInstance(IntValue.class);
             IntValue value1 = Values.newHeapInstance(IntValue.class);
@@ -1379,7 +1380,7 @@ public class CHMUseCasesTest {
 
         try (ChronicleMap<UnsignedIntValue, UnsignedIntValue> map = newInstance(builder)) {
 
-            assertEquals(1, ((VanillaChronicleMap) map).maxChunksPerEntry);
+            assertEquals(1, ((VanillaChronicleMap<?, ?, ?>) map).maxChunksPerEntry);
             UnsignedIntValue key1 = Values.newHeapInstance(UnsignedIntValue.class);
             UnsignedIntValue value1 = Values.newHeapInstance(UnsignedIntValue.class);
 
@@ -1604,7 +1605,7 @@ public class CHMUseCasesTest {
 
             // this may change due to alignment
             // assertEquals(8, entrySize(map));
-            assertEquals(1, ((VanillaChronicleMap) map).maxChunksPerEntry);
+            assertEquals(1, ((VanillaChronicleMap<?, ?, ?>) map).maxChunksPerEntry);
             IntValue key1 = Values.newHeapInstance(IntValue.class);
             IntValue key2 = Values.newHeapInstance(IntValue.class);
             UnsignedShortValue value1 = Values.newHeapInstance(UnsignedShortValue.class);
@@ -1706,7 +1707,7 @@ public class CHMUseCasesTest {
 
         try (ChronicleMap<IntValue, CharValue> map = newInstance(builder)) {
 
-            assertEquals(1, ((VanillaChronicleMap) map).maxChunksPerEntry);
+            assertEquals(1, ((VanillaChronicleMap<?, ?, ?>) map).maxChunksPerEntry);
             IntValue key1 = Values.newHeapInstance(IntValue.class);
             IntValue key2 = Values.newHeapInstance(IntValue.class);
             CharValue value1 = Values.newHeapInstance(CharValue.class);
@@ -1808,7 +1809,7 @@ public class CHMUseCasesTest {
             // TODO should be 5, but shorter fields based on range doesn't seem to be implemented
             // on data value generation level yet
             //assertEquals(8, entrySize(map)); this may change due to alignmented
-            assertEquals(1, ((VanillaChronicleMap) map).maxChunksPerEntry);
+            assertEquals(1, ((VanillaChronicleMap<?, ?, ?>) map).maxChunksPerEntry);
 
             IntValue key1 = Values.newHeapInstance(IntValue.class);
             IntValue key2 = Values.newHeapInstance(IntValue.class);
@@ -1910,7 +1911,7 @@ public class CHMUseCasesTest {
 
         try (ChronicleMap<IntValue, BooleanValue> map = newInstance(builder)) {
 
-            assertEquals(1, ((VanillaChronicleMap) map).maxChunksPerEntry);
+            assertEquals(1, ((VanillaChronicleMap<?, ?, ?>) map).maxChunksPerEntry);
 
             IntValue key1 = Values.newHeapInstance(IntValue.class);
             IntValue key2 = Values.newHeapInstance(IntValue.class);
@@ -2012,7 +2013,7 @@ public class CHMUseCasesTest {
 
         try (ChronicleMap<FloatValue, FloatValue> map = newInstance(builder)) {
 
-            assertEquals(1, ((VanillaChronicleMap) map).maxChunksPerEntry);
+            assertEquals(1, ((VanillaChronicleMap<?, ?, ?>) map).maxChunksPerEntry);
 
             FloatValue key1 = Values.newHeapInstance(FloatValue.class);
             FloatValue key2 = Values.newHeapInstance(FloatValue.class);
@@ -2117,7 +2118,7 @@ public class CHMUseCasesTest {
             // this may change due to alignment
             //assertEquals(16, entrySize(map));
 
-            assertEquals(1, ((VanillaChronicleMap) map).maxChunksPerEntry);
+            assertEquals(1, ((VanillaChronicleMap<?, ?, ?>) map).maxChunksPerEntry);
 
             DoubleValue key1 = Values.newHeapInstance(DoubleValue.class);
             DoubleValue key2 = Values.newHeapInstance(DoubleValue.class);
@@ -2223,7 +2224,7 @@ public class CHMUseCasesTest {
 
             // this may change due to alignment
             // assertEquals(16, entrySize(map));
-            assertEquals(1, ((VanillaChronicleMap) map).maxChunksPerEntry);
+            assertEquals(1, ((VanillaChronicleMap<?, ?, ?>) map).maxChunksPerEntry);
 
             LongValue key1 = Values.newHeapInstance(LongValue.class);
             LongValue key2 = Values.newHeapInstance(LongValue.class);
@@ -2634,6 +2635,7 @@ public class CHMUseCasesTest {
         int addValue(int addition);
     }
 
+    @SuppressWarnings("serial")
     static class PrefixStringFunction implements SerializableFunction<String, String> {
         private final String prefix;
 
@@ -2653,11 +2655,17 @@ public class CHMUseCasesTest {
         }
 
         @Override
+        public int hashCode() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public String toString() {
             return prefix;
         }
     }
 
+    @SuppressWarnings("serial")
     private static class StringPrefixUnaryOperator
             implements BiFunction<String, String, String>, Serializable {
 

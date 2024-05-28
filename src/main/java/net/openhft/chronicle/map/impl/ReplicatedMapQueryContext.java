@@ -69,7 +69,8 @@ import net.openhft.sg.Staged;
         ReplicatedInput.class,
 
         ReplicatedQueryAlloc.class,
-},
+}
+,
         nested = {
                 ReadLock.class,
                 UpdateLock.class,

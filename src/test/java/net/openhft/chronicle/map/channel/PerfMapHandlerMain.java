@@ -52,7 +52,6 @@ Percentile   run1         run2         run3         run4         run5      % Var
 99.999:        374.27       144.13       209.66        36.93        37.57        75.72
 worst:         545.79       302.59       350.72        43.97        80.26        82.30
 
-
 -Durl=tcp://:1248 -Dkeys=1000000 -Dsize=256 -Dpath=/tmp -Dthroughput=1000000 -Diterations=30000000 -DpauseMode=balanced -Dbuffered=true
 -------------------------------- SUMMARY (end to end) us -------------------------------------------
 Percentile   run1         run2         run3         run4         run5      % Variation
@@ -69,6 +68,7 @@ Percentile   run1         run2         run3         run4         run5      % Var
 worst:        8249.34       625.66       318.98        70.53        91.26        83.99
  */
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class PerfMapHandlerMain implements JLBHTask {
     static final int THROUGHPUT = Integer.getInteger("throughput", 100_000);
     static final int KEYS = Integer.getInteger("keys", THROUGHPUT);
@@ -78,7 +78,7 @@ public class PerfMapHandlerMain implements JLBHTask {
     static final String URL = System.getProperty("url", "tcp://:1248");
     private static final PauserMode PAUSER_MODE = PauserMode.valueOf(System.getProperty("pauserMode", PauserMode.balanced.name()));
     private static final String PATH = System.getProperty("path", OS.isLinux() ? "/dev/shm" : OS.TMP);
-    final Bytes key = Bytes.allocateElasticDirect();
+    final Bytes<Void> key = Bytes.allocateElasticDirect();
     private DummyData data;
     private TimedPassMapServiceIn serviceIn;
     private MethodReader reader;
@@ -161,6 +161,7 @@ public class PerfMapHandlerMain implements JLBHTask {
         });
         readerThread = new Thread(() -> {
             try (AffinityLock lock = AffinityLock.acquireLock()) {
+                assert lock != null;
                 while (!Thread.currentThread().isInterrupted()) {
                     reader.readOne();
                 }
@@ -172,7 +173,6 @@ public class PerfMapHandlerMain implements JLBHTask {
         readerThread.setDaemon(true);
         readerThread.start();
     }
-
 
     @Override
     public void warmedUp() {
@@ -220,11 +220,11 @@ public class PerfMapHandlerMain implements JLBHTask {
     }
 
     interface PassMapServiceIn extends Closeable {
-        void put(Bytes key, DummyData value);
+        void put(Bytes<?> key, DummyData value);
 
-        void get(Bytes key);
+        void get(Bytes<?> key);
 
-        void remove(Bytes key);
+        void remove(Bytes<?> key);
 
         void goodbye();
     }
@@ -252,13 +252,13 @@ public class PerfMapHandlerMain implements JLBHTask {
         }
 
         @Override
-        public void put(Bytes key, DummyData value) {
+        public void put(Bytes<?> key, DummyData value) {
             map.put(key, value);
             reply.on(timeNS).status(true);
         }
 
         @Override
-        public void get(Bytes key) {
+        public void get(Bytes<?> key) {
             reply.on(timeNS).reply(map.getUsing(key, dataValue()));
         }
 
@@ -267,7 +267,7 @@ public class PerfMapHandlerMain implements JLBHTask {
         }
 
         @Override
-        public void remove(Bytes key) {
+        public void remove(Bytes<?> key) {
             reply.on(timeNS).status(map.remove(key, dataValue()));
         }
 
@@ -288,4 +288,3 @@ public class PerfMapHandlerMain implements JLBHTask {
         }
     }
 }
-

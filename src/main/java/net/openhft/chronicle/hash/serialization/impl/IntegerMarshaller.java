@@ -26,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
  * is deprecated in favor of {@link IntegerDataAccess_3_13}. As reader and element writer for {@link
  * ListMarshaller} and similar composite marshallers, {@code IntegerMarshaller} is not deprecated.
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public final class IntegerMarshaller
         implements SizedReader<Integer>, BytesReader<Integer>,
         SizedWriter<Integer>, BytesWriter<Integer>, EnumMarshallable<IntegerMarshaller> {
@@ -52,12 +53,12 @@ public final class IntegerMarshaller
 
     @NotNull
     @Override
-    public Integer read(Bytes in, @Nullable Integer using) {
+    public Integer read(Bytes<?> in, @Nullable Integer using) {
         return in.readInt();
     }
 
     @Override
-    public void write(Bytes out, @NotNull Integer toWrite) {
+    public void write(Bytes<?> out, @NotNull Integer toWrite) {
         out.writeInt(toWrite);
     }
 
