@@ -7,7 +7,7 @@
         <groupId>net.openhft</groupId>
         <artifactId>java-parent-pom</artifactId>
         <!-- stay at 1.25.4 until Javadoc can be fixed -->
-        <version>1.25.4</version>
+        <version>1.26.0</version>
         <relativePath />
     </parent>
 
