@@ -43,7 +43,7 @@ import static net.openhft.chronicle.hash.impl.LocalLockState.UNLOCKED;
 /**
  * Generated code
  */
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({"rawtypes", "unchecked", "this-escape"})
 public class CompiledReplicatedMapIterationContext<K, V, R> extends ChainingInterface implements AutoCloseable , ChecksumEntry , HashEntry<K> , HashSegmentContext<K, MapEntry<K, V>> , ReplicatedHashSegmentContext<K, MapEntry<K, V>> , SegmentLock , Alloc , KeyHashCode , LocksInterface , RemoteOperationContext<K> , ReplicableEntry , MapContext<K, V, R> , MapEntry<K, V> , IterationContext<K, V, R> , ReplicatedChronicleMapHolder<K, V, R> , ReplicatedIterationContext<K, V, R> , MapReplicableEntry<K, V> , SetContext<K, R> {
     public boolean readZeroGuarded() {
         if (!(this.locksInit()))

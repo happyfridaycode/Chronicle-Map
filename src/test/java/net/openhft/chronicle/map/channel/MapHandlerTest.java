@@ -11,9 +11,8 @@ import net.openhft.chronicle.wire.DocumentContext;
 import net.openhft.chronicle.wire.SelfDescribingMarshallable;
 import net.openhft.chronicle.wire.Wire;
 import net.openhft.chronicle.wire.Wires;
-import net.openhft.chronicle.wire.channel.ChronicleChannel;
-import net.openhft.chronicle.wire.channel.ChronicleContext;
-import net.openhft.chronicle.wire.utils.YamlTester;
+import net.openhft.chronicle.wire.channel.*;
+import net.openhft.chronicle.wire.utils.*;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -22,7 +21,7 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({"rawtypes", "unchecked", "deprecation"})
 public class MapHandlerTest {
     @Test
     public void passThroughMapFF() throws IOException {

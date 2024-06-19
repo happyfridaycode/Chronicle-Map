@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target({ElementType.TYPE})
 public @interface Context {
-    Class[] topLevel();
+    Class<?>[] topLevel();
 
-    Class[] nested();
+    Class<?>[] nested();
 }

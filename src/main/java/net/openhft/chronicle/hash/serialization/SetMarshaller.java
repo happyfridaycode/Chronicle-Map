@@ -99,11 +99,12 @@ public final class SetMarshaller<T>
 
     /**
      * Returns a {@code SetMarshaller} which uses the given marshaller as both reader and writer of
-     * set elements. Example: <pre><code>
+     * set elements. Example: <pre>
      * ChronicleMap
      *     .of(String.class,{@code (Class<Set<Integer>>)} ((Class) Set.class))
      *     .valueMarshaller(SetMarshaller.of(IntegerMarshaller.INSTANCE))
-     *     ...</code></pre>
+     *     ...
+     * </pre>
      *
      * @param elementMarshaller set elements' marshaller
      * @param <T>               type of set elements

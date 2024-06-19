@@ -5,14 +5,11 @@ import net.openhft.chronicle.bytes.Bytes;
 import net.openhft.chronicle.core.Jvm;
 import net.openhft.chronicle.map.ChronicleMap;
 import net.openhft.chronicle.map.channel.internal.MapChannel;
-import net.openhft.chronicle.wire.channel.AbstractHandler;
-import net.openhft.chronicle.wire.channel.ChronicleChannel;
-import net.openhft.chronicle.wire.channel.ChronicleChannelCfg;
-import net.openhft.chronicle.wire.channel.ChronicleContext;
+import net.openhft.chronicle.wire.channel.*;
 
 import java.io.IOException;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({"rawtypes", "unchecked", "deprecation"})
 public class MapHandler<VALUE, REPLY> extends AbstractHandler<MapHandler<VALUE, REPLY>> {
     protected MapService<VALUE, REPLY> mapService;
     private String mapName;

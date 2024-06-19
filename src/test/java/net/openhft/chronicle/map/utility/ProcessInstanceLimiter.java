@@ -86,7 +86,7 @@ import static net.openhft.chronicle.algo.bytes.Access.checkedBytesStoreAccess;
  * 4. Calls startingProcessOfType("_DEFAULT_") to indicate that this process is an
  * instance of a _DEFAULT_ type process, and so should be limited appropriately
  */
-@SuppressWarnings({"rawtypes", "unchecked", "deprecation"})
+@SuppressWarnings({"rawtypes", "unchecked", "deprecation", "this-escape"})
 public class ProcessInstanceLimiter implements Runnable {
     private static final long DEFAULT_TIME_UPDATE_INTERVAL_MS = 100L;
     private static final String DEFAULT_SHARED_MAP_NAME = "ProcessInstanceLimiter_DEFAULT_SHARED_MAP_";
@@ -363,7 +363,7 @@ public class ProcessInstanceLimiter implements Runnable {
                     this.startTime = System.currentTimeMillis();
                     this.starttimedata.get(processType).setTimeAt(i, this.startTime);
                     if (updateTheSharedMap(processType, i, data)) {
-                        this.localUpdates.put(processType, new Integer(i));
+                        this.localUpdates.put(processType, i);
                         unlock(data);
                         alreadyUnlocked = true;
                         this.callback.thisProcessOfTypeHasStartedAtSlot(processType, i);

@@ -18,6 +18,7 @@ package net.openhft.chronicle.map;
 
 import java.util.AbstractMap;
 
+@SuppressWarnings("serial")
 class WriteThroughEntry<K, V> extends AbstractMap.SimpleEntry<K, V> {
     private static final long serialVersionUID = 0L;
 

@@ -15,9 +15,7 @@ import net.openhft.chronicle.jlbh.JLBHOptions;
 import net.openhft.chronicle.jlbh.JLBHTask;
 import net.openhft.chronicle.map.ChronicleMap;
 import net.openhft.chronicle.threads.PauserMode;
-import net.openhft.chronicle.wire.channel.ChronicleChannel;
-import net.openhft.chronicle.wire.channel.ChronicleContext;
-import net.openhft.chronicle.wire.channel.ChronicleGatewayMain;
+import net.openhft.chronicle.wire.channel.*;
 import net.openhft.chronicle.wire.converter.NanoTime;
 
 import java.io.File;
@@ -68,7 +66,7 @@ Percentile   run1         run2         run3         run4         run5      % Var
 worst:        8249.34       625.66       318.98        70.53        91.26        83.99
  */
 
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({"rawtypes", "unchecked", "deprecation"})
 public class PerfMapHandlerMain implements JLBHTask {
     static final int THROUGHPUT = Integer.getInteger("throughput", 100_000);
     static final int KEYS = Integer.getInteger("keys", THROUGHPUT);

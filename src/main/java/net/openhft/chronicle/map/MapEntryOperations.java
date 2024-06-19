@@ -38,7 +38,7 @@ import org.jetbrains.annotations.NotNull;
  * implementation (i. e. a map that preserves the uniqueness of its values as well as that of
  * its keys), that includes two {@code ChronicleMaps}, the {@code MapEntryOperations}' methods return
  * type could be used to indicate if we were successful to lock both maps before performing
- * the update: <pre><code>
+ * the update: <pre>
  * enum DualLockSuccess {SUCCESS, FAIL}
  *
  * class{@code BiMapEntryOperations<K, V>}
@@ -93,7 +93,7 @@ import org.jetbrains.annotations.NotNull;
  *     }
  *
  *     // ... other methods
- * }</code></pre>
+ * }</pre>
  *
  * @param <K> the map key type
  * @param <V> the map value type

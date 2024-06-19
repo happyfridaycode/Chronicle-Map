@@ -452,10 +452,8 @@ class Gamma {
      * Returns the Lanczos approximation used to compute the gamma function.
      * The Lanczos approximation is related to the Gamma function by the
      * following equation
-     * <center>
      * {@code gamma(x) = sqrt(2 * pi) / x * (x + g + 0.5) ^ (x + 0.5)
      * * exp(-x - g - 0.5) * lanczos(x)},
-     * </center>
      * where {@code g} is the Lanczos constant.
      *
      * @param x Argument.

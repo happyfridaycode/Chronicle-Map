@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({"rawtypes", "unchecked", "deprecation"})
 public class MapChannel<VALUE, REPLY> extends SimpleCloseable implements ChronicleChannel {
 
     private static final OkHeader OK = new OkHeader();
