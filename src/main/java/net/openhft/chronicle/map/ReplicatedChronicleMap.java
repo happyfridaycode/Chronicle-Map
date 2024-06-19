@@ -100,7 +100,7 @@ import static net.openhft.chronicle.hash.replication.TimeProvider.currentTime;
  * @param <K> the entries key type
  * @param <V> the entries value type
  */
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({"rawtypes", "unchecked", "this-escape"})
 public class ReplicatedChronicleMap<K, V, R> extends VanillaChronicleMap<K, V, R>
         implements Replica, Replica.EntryExternalizable {
 

@@ -28,6 +28,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 // todo make this example more efficient e.g. not using Serializable.
+@SuppressWarnings("this-escape")
 public class ProcessInstanceLimiterMain implements Runnable {
     private static final long TIME_UPDATE_INTERVAL = 100L;
     private final String sharedMapName;

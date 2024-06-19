@@ -864,7 +864,7 @@ public final class ChronicleMapBuilder<K, V> implements
         if (constantlySizedEntries())
             return toLong(averageEntrySize);
         final int maxChunkSize = 1 << 30;
-        for (int chunkSize = 4; chunkSize <= maxChunkSize; chunkSize *= 2L) {
+        for (long chunkSize = 4; chunkSize <= maxChunkSize; chunkSize *= 2L) {
             if ((long) maxDefaultChunksPerAverageEntry(replicated, (int) averageEntrySize) * chunkSize > averageEntrySize)
                 return chunkSize;
         }
