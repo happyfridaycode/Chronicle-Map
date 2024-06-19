@@ -45,7 +45,7 @@ import java.util.concurrent.CountDownLatch;
  * {@code ChronicleHashBuilder} instances are not safe for concurrent use from multiple threads,
  * if at least one of the threads mutates the {@code ChronicleHashBuilder}'s state.
  * <p>
- * <a name="low-level-config"></a>There are some "low-level" configurations in this builder,
+ * There are some "low-level" configurations in this builder,
  * that require deep understanding of the Chronicle implementation design to be properly used.
  * Know what you do. These configurations are applied as-is, without extra round-ups, adjustments,
  * etc.

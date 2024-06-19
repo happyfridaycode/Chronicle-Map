@@ -22,7 +22,7 @@ import net.openhft.chronicle.values.Range;
 import net.openhft.chronicle.values.Values;
 
 /**
- * <h1>This interface is a private API, don't use in client code</h1>
+ * <h2>This interface is a private API, don't use in client code</h2>
  * <p>
  * Excluding global mutable state lock
  */

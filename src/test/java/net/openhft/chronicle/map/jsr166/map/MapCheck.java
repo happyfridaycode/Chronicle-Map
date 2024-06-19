@@ -366,7 +366,7 @@ public class MapCheck {
         System.out.print("Serialize              : ");
 
         for (int i = 0; i < size; i++) {
-            s.put(new Integer(i), Boolean.TRUE);
+            s.put(i, Boolean.TRUE);
         }
 
         long startTime = System.currentTimeMillis();

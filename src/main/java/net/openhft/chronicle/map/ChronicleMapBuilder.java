@@ -116,7 +116,6 @@ import static net.openhft.chronicle.map.VanillaChronicleMap.alignAddr;
  * #constantKeySizeBySample(Object)}, otherwise {@link #averageKey(Object)} or {@link
  * #averageKeySize(double)} method, and accordingly for values.
  * <p>
- * <a name="jvm-configurations"></a>
  * There are some JVM-level configurations, which are not stored in the ChronicleMap's persistence
  * file (or the other way to say this: they are not parts of <a
  * href="https://github.com/OpenHFT/Chronicle-Map/tree/ea/spec">the Chronicle Map data store

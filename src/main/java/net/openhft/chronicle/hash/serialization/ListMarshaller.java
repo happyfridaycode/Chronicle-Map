@@ -89,11 +89,13 @@ public final class ListMarshaller<T>
 
     /**
      * Returns a {@code ListMarshaller} which uses the given marshaller as both reader and writer of
-     * list elements. Example: <pre><code>
+     * list elements. Example:
+     * <pre><code>
      * ChronicleMap
-     *     .of(String.class,{@code (Class<List<Integer>>)} ((Class) List.class))
+     *     .of(String.class, (Class&lt;List&lt;Integer&gt;&gt;)} ((Class) List.class))
      *     .valueMarshaller(ListMarshaller.of(IntegerMarshaller.INSTANCE))
-     *     ...</code></pre>
+     *     ...
+     * </code></pre>
      *
      * @param elementMarshaller list elements' marshaller
      * @param <T>               type of list elements

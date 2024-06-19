@@ -363,7 +363,7 @@ public class ProcessInstanceLimiter implements Runnable {
                     this.startTime = System.currentTimeMillis();
                     this.starttimedata.get(processType).setTimeAt(i, this.startTime);
                     if (updateTheSharedMap(processType, i, data)) {
-                        this.localUpdates.put(processType, new Integer(i));
+                        this.localUpdates.put(processType, i);
                         unlock(data);
                         alreadyUnlocked = true;
                         this.callback.thisProcessOfTypeHasStartedAtSlot(processType, i);

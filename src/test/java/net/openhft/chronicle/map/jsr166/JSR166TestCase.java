@@ -96,7 +96,7 @@ import static java.util.concurrent.TimeUnit.NANOSECONDS;
  * runs all JSR166 unit tests.</li>
  * </ul>
  */
-@SuppressWarnings({"rawtypes", "unchecked", "deprecation", "serial"})
+@SuppressWarnings({"rawtypes", "unchecked", "deprecation", "serial", "removal"})
 public class JSR166TestCase {
 
     /**
